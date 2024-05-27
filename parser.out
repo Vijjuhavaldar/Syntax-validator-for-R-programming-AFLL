@@ -1,0 +1,44 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> for_statement
+Rule 1     for_statement -> FOR LBRACE ID IN NUM COLON NUM RBRACE LFLOWER statements RFLOWER
+Rule 2     for_statement -> FOR LBRACE ID IN ID RBRACE LFLOWER statements RFLOWER
+Rule 3     for_statement -> FOR LBRACE ID IN NUM COLON NUM RBRACE singlestatement
+Rule 4     for_statement -> FOR LBRACE ID IN ID RBRACE singleStatement
+Rule 5     statements -> statements statement
+Rule 6     statements -> statement
+Rule 7     statement -> list
+Rule 8     statement -> for_statement
+Rule 9     statement -> empty
+Rule 10    singleStatement -> list
+Rule 11    singleStatement -> empty
+Rule 12    singleStatement -> for_statement
+Rule 13    list -> ID list
+Rule 14    list -> ID
+Rule 15    empty -> <empty>
+
+Terminals, with rules where they appear
+
+COLON                : 1 3
+FOR                  : 1 2 3 4
+ID                   : 1 2 2 3 4 4 13 14
+IN                   : 1 2 3 4
+LBRACE               : 1 2 3 4
+LFLOWER              : 1 2
+NUM                  : 1 1 3 3
+RBRACE               : 1 2 3 4
+RFLOWER              : 1 2
+error                : 
+
+Nonterminals, with rules where they appear
+
+empty                : 9 11
+for_statement        : 8 12 0
+list                 : 7 10 13
+singleStatement      : 4
+singlestatement      : 3
+statement            : 5 6
+statements           : 1 2 5
+
