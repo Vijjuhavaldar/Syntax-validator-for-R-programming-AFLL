@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ELSE EQUALS GREATER ID IF LEFTBRACE LEFTBRACKET LESSER NOT OR RIGHTBRACE RIGHTBRACKET\n    ifstmt :  IF LEFTBRACKET conditions RIGHTBRACKET LEFTBRACE statements RIGHTBRACE\n           |  IF LEFTBRACKET conditions RIGHTBRACKET statementSingle\n    \n    statements : statements statement\n               | statement\n    \n    statement : list \n             | ifstmt\n             | empty\n    \n    statementSingle : ifstmt\n                    | list\n                    | empty\n    \n    list : ID list \n         | ID\n    \n    empty :\n    \n    conditions  : ID EQUALS ID \n                | ID GREATER ID \n                | ID LESSER ID \n                | ID GREATER EQUALS ID \n                | ID LESSER EQUALS ID \n                | ID NOT EQUALS ID\n                | conditions AND conditions \n                | conditions OR conditions\n                | ID\n    '
+_lr_signature = 'AND COLON EQUALS FOR GREATER ID IF IN LBRACKET LESSER LFLOWER NEXT NOT NUM OR RBRACKET RFLOWER WHILE\n    nextstmt :  IF  LBRACKET condition RBRACKET LFLOWER statements NEXT RFLOWER \n             |  FOR LBRACKET ID IN NUM COLON NUM RBRACKET LFLOWER NEXT statements RFLOWER\n             |  FOR LBRACKET ID IN ID RBRACKET LFLOWER NEXT statements RFLOWER\n             |  FOR LBRACKET ID IN NUM COLON NUM RBRACKET NEXT singleStatement\n             |  FOR LBRACKET ID IN ID RBRACKET NEXT singleStatement\n             |  WHILE LBRACKET condition RBRACKET LFLOWER NEXT statements RFLOWER\n             |  WHILE LBRACKET condition RBRACKET  NEXT singleStatement \n    \n    statements : statements statement\n               | statement\n    \n    statement : list \n             | nextstmt\n             | empty\n    \n    singleStatement  : list \n                    | empty\n                    | nextstmt\n    \n    list : ID list \n         | ID\n    \n    empty :\n    \n    condition : ID EQUALS ID \n                | ID GREATER ID \n                | ID LESSER ID \n                | ID GREATER EQUALS ID \n                | ID LESSER EQUALS ID \n                | ID NOT EQUALS ID\n                | condition AND condition\n                | condition OR condition\n                | ID\n    '
     
-_lr_action_items = {'IF':([0,6,13,14,15,16,17,18,27,28,29,30,31,32,36,37,],[2,2,2,-2,-8,-9,-10,-12,2,-4,-5,-6,-7,-11,-1,-3,]),'$end':([1,6,14,15,16,17,18,32,36,],[0,-13,-2,-8,-9,-10,-12,-11,-1,]),'LEFTBRACKET':([2,],[3,]),'ID':([3,6,7,8,9,10,11,13,14,15,16,17,18,23,25,26,27,28,29,30,31,32,36,37,],[5,18,5,5,21,22,24,18,-2,-8,-9,-10,18,33,34,35,18,-4,-5,-6,-7,-11,-1,-3,]),'RIGHTBRACKET':([4,5,19,20,21,22,24,33,34,35,],[6,-22,-20,-21,-14,-15,-16,-17,-18,-19,]),'AND':([4,5,19,20,21,22,24,33,34,35,],[7,-22,7,7,-14,-15,-16,-17,-18,-19,]),'OR':([4,5,19,20,21,22,24,33,34,35,],[8,-22,8,8,-14,-15,-16,-17,-18,-19,]),'EQUALS':([5,10,11,12,],[9,23,25,26,]),'GREATER':([5,],[10,]),'LESSER':([5,],[11,]),'NOT':([5,],[12,]),'LEFTBRACE':([6,],[13,]),'RIGHTBRACE':([6,13,14,15,16,17,18,27,28,29,30,31,32,36,37,],[-13,-13,-2,-8,-9,-10,-12,36,-4,-5,-6,-7,-11,-1,-3,]),}
+_lr_action_items = {'IF':([0,21,33,34,35,36,37,38,39,45,46,47,48,49,51,52,54,56,57,58,59,61,62,64,65,66,67,68,69,],[2,2,2,2,-9,-10,-11,-12,-17,2,-7,-13,-14,-15,-8,-16,2,2,-1,2,-5,-6,2,2,-3,2,-4,2,-2,]),'FOR':([0,21,33,34,35,36,37,38,39,45,46,47,48,49,51,52,54,56,57,58,59,61,62,64,65,66,67,68,69,],[3,3,3,3,-9,-10,-11,-12,-17,3,-7,-13,-14,-15,-8,-16,3,3,-1,3,-5,-6,3,3,-3,3,-4,3,-2,]),'WHILE':([0,21,33,34,35,36,37,38,39,45,46,47,48,49,51,52,54,56,57,58,59,61,62,64,65,66,67,68,69,],[4,4,4,4,-9,-10,-11,-12,-17,4,-7,-13,-14,-15,-8,-16,4,4,-1,4,-5,-6,4,4,-3,4,-4,4,-2,]),'$end':([1,33,39,46,47,48,49,52,54,57,59,61,64,65,67,69,],[0,-18,-17,-7,-13,-14,-15,-16,-18,-1,-5,-6,-18,-3,-4,-2,]),'LBRACKET':([2,3,4,],[5,6,7,]),'ID':([5,6,7,13,14,15,16,17,19,21,26,28,29,33,34,35,36,37,38,39,45,46,47,48,49,51,52,54,56,57,58,59,61,62,64,65,66,67,68,69,],[9,10,9,9,9,24,25,27,30,39,40,41,42,39,39,-9,-10,-11,-12,39,39,-7,-13,-14,-15,-8,-16,39,39,-1,39,-5,-6,39,39,-3,39,-4,39,-2,]),'RBRACKET':([8,9,11,22,23,24,25,27,30,40,41,42,55,],[12,-27,20,-25,-26,-19,-20,-21,43,-22,-23,-24,60,]),'AND':([8,9,11,22,23,24,25,27,40,41,42,],[13,-27,13,13,13,-19,-20,-21,-22,-23,-24,]),'OR':([8,9,11,22,23,24,25,27,40,41,42,],[14,-27,14,14,14,-19,-20,-21,-22,-23,-24,]),'EQUALS':([9,16,17,18,],[15,26,28,29,]),'GREATER':([9,],[16,]),'LESSER':([9,],[17,]),'NOT':([9,],[18,]),'IN':([10,],[19,]),'LFLOWER':([12,20,43,60,],[21,32,53,63,]),'NUM':([19,44,],[31,55,]),'NEXT':([20,21,32,33,34,35,36,37,38,39,43,46,47,48,49,51,52,53,54,57,59,60,61,63,64,65,67,69,],[33,-18,45,-18,50,-9,-10,-11,-12,-17,54,-7,-13,-14,-15,-8,-16,58,-18,-1,-5,64,-6,66,-18,-3,-4,-2,]),'COLON':([31,],[44,]),'RFLOWER':([33,35,36,37,38,39,45,46,47,48,49,50,51,52,54,56,57,58,59,61,62,64,65,66,67,68,69,],[-18,-9,-10,-11,-12,-17,-18,-7,-13,-14,-15,57,-8,-16,-18,61,-1,-18,-5,-6,65,-18,-3,-18,-4,69,-2,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'ifstmt':([0,6,13,27,],[1,15,30,30,]),'conditions':([3,7,8,],[4,19,20,]),'statementSingle':([6,],[14,]),'list':([6,13,18,27,],[16,29,32,29,]),'empty':([6,13,27,],[17,31,31,]),'statements':([13,],[27,]),'statement':([13,27,],[28,37,]),}
+_lr_goto_items = {'nextstmt':([0,21,33,34,45,54,56,58,62,64,66,68,],[1,37,49,37,37,49,37,37,37,49,37,37,]),'condition':([5,7,13,14,],[8,11,22,23,]),'statements':([21,45,58,66,],[34,56,62,68,]),'statement':([21,34,45,56,58,62,66,68,],[35,51,35,51,35,51,35,51,]),'list':([21,33,34,39,45,54,56,58,62,64,66,68,],[36,47,36,52,36,47,36,36,36,47,36,36,]),'empty':([21,33,34,45,54,56,58,62,64,66,68,],[38,48,38,38,48,38,38,38,48,38,38,]),'singleStatement':([33,54,64,],[46,59,67,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,27 +26,32 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> ifstmt","S'",1,None,None,None),
-  ('ifstmt -> IF LEFTBRACKET conditions RIGHTBRACKET LEFTBRACE statements RIGHTBRACE','ifstmt',7,'p_ifstmt','if_parser.py',9),
-  ('ifstmt -> IF LEFTBRACKET conditions RIGHTBRACKET statementSingle','ifstmt',5,'p_ifstmt','if_parser.py',10),
-  ('statements -> statements statement','statements',2,'p_statements','if_parser.py',20),
-  ('statements -> statement','statements',1,'p_statements','if_parser.py',21),
-  ('statement -> list','statement',1,'p_statement','if_parser.py',31),
-  ('statement -> ifstmt','statement',1,'p_statement','if_parser.py',32),
-  ('statement -> empty','statement',1,'p_statement','if_parser.py',33),
-  ('statementSingle -> ifstmt','statementSingle',1,'p_statementSingle','if_parser.py',39),
-  ('statementSingle -> list','statementSingle',1,'p_statementSingle','if_parser.py',40),
-  ('statementSingle -> empty','statementSingle',1,'p_statementSingle','if_parser.py',41),
-  ('list -> ID list','list',2,'p_list','if_parser.py',50),
-  ('list -> ID','list',1,'p_list','if_parser.py',51),
-  ('empty -> <empty>','empty',0,'p_empty','if_parser.py',60),
-  ('conditions -> ID EQUALS ID','conditions',3,'p_conditions','if_parser.py',67),
-  ('conditions -> ID GREATER ID','conditions',3,'p_conditions','if_parser.py',68),
-  ('conditions -> ID LESSER ID','conditions',3,'p_conditions','if_parser.py',69),
-  ('conditions -> ID GREATER EQUALS ID','conditions',4,'p_conditions','if_parser.py',70),
-  ('conditions -> ID LESSER EQUALS ID','conditions',4,'p_conditions','if_parser.py',71),
-  ('conditions -> ID NOT EQUALS ID','conditions',4,'p_conditions','if_parser.py',72),
-  ('conditions -> conditions AND conditions','conditions',3,'p_conditions','if_parser.py',73),
-  ('conditions -> conditions OR conditions','conditions',3,'p_conditions','if_parser.py',74),
-  ('conditions -> ID','conditions',1,'p_conditions','if_parser.py',75),
+  ("S' -> nextstmt","S'",1,None,None,None),
+  ('nextstmt -> IF LBRACKET condition RBRACKET LFLOWER statements NEXT RFLOWER','nextstmt',8,'p_nextstmt','next_parser.py',9),
+  ('nextstmt -> FOR LBRACKET ID IN NUM COLON NUM RBRACKET LFLOWER NEXT statements RFLOWER','nextstmt',12,'p_nextstmt','next_parser.py',10),
+  ('nextstmt -> FOR LBRACKET ID IN ID RBRACKET LFLOWER NEXT statements RFLOWER','nextstmt',10,'p_nextstmt','next_parser.py',11),
+  ('nextstmt -> FOR LBRACKET ID IN NUM COLON NUM RBRACKET NEXT singleStatement','nextstmt',10,'p_nextstmt','next_parser.py',12),
+  ('nextstmt -> FOR LBRACKET ID IN ID RBRACKET NEXT singleStatement','nextstmt',8,'p_nextstmt','next_parser.py',13),
+  ('nextstmt -> WHILE LBRACKET condition RBRACKET LFLOWER NEXT statements RFLOWER','nextstmt',8,'p_nextstmt','next_parser.py',14),
+  ('nextstmt -> WHILE LBRACKET condition RBRACKET NEXT singleStatement','nextstmt',6,'p_nextstmt','next_parser.py',15),
+  ('statements -> statements statement','statements',2,'p_statements','next_parser.py',39),
+  ('statements -> statement','statements',1,'p_statements','next_parser.py',40),
+  ('statement -> list','statement',1,'p_statement','next_parser.py',50),
+  ('statement -> nextstmt','statement',1,'p_statement','next_parser.py',51),
+  ('statement -> empty','statement',1,'p_statement','next_parser.py',52),
+  ('singleStatement -> list','singleStatement',1,'p_singleStatement','next_parser.py',58),
+  ('singleStatement -> empty','singleStatement',1,'p_singleStatement','next_parser.py',59),
+  ('singleStatement -> nextstmt','singleStatement',1,'p_singleStatement','next_parser.py',60),
+  ('list -> ID list','list',2,'p_list','next_parser.py',69),
+  ('list -> ID','list',1,'p_list','next_parser.py',70),
+  ('empty -> <empty>','empty',0,'p_empty','next_parser.py',79),
+  ('condition -> ID EQUALS ID','condition',3,'p_condition','next_parser.py',86),
+  ('condition -> ID GREATER ID','condition',3,'p_condition','next_parser.py',87),
+  ('condition -> ID LESSER ID','condition',3,'p_condition','next_parser.py',88),
+  ('condition -> ID GREATER EQUALS ID','condition',4,'p_condition','next_parser.py',89),
+  ('condition -> ID LESSER EQUALS ID','condition',4,'p_condition','next_parser.py',90),
+  ('condition -> ID NOT EQUALS ID','condition',4,'p_condition','next_parser.py',91),
+  ('condition -> condition AND condition','condition',3,'p_condition','next_parser.py',92),
+  ('condition -> condition OR condition','condition',3,'p_condition','next_parser.py',93),
+  ('condition -> ID','condition',1,'p_condition','next_parser.py',94),
 ]
